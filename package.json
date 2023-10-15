@@ -1,0 +1,36 @@
+{
+  "name": "guardly",
+  "version": "1.0.0",
+  "description": "women safety app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node --loader ts-node/esm ./src/server.ts"
+  },
+  "keywords": [
+    "fastify",
+    "nodejs"
+  ],
+  "author": "Saba Hasan",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/redis": "^6.1.1",
+    "@fastify/websocket": "^8.2.0",
+    "fastify": "^4.23.2",
+    "ts-node": "^10.9.1",
+    "uuidv4": "^6.2.13",
+    "xstate": "^4.38.2"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.6.3",
+    "@types/ws": "^8.5.5",
+    "concurrently": "^8.2.1",
+    "esm": "^3.2.25",
+    "javascript-state-machine": "^3.1.0",
+    "nodemon": "^3.0.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  }
+}

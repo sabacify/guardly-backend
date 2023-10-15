@@ -1,0 +1,49 @@
+version: '1.0'
+services:
+  cache:
+    container_name: redis
+    hostname: redis
+    image: redis
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    build: .
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+
+  api:
+    container_name: guardly-backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: build
+    image: guardly-backend
+    depends_on:
+      - cache
+    ports:
+      - "3002:3002"
+    environment:
+      NODE_ENV: production
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+    links:
+      - cache
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  redis:
+    driver: local
+  api:
+    driver: local
