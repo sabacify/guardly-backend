@@ -1,28 +1,42 @@
 import * as fastify from 'fastify'
 import * as redis from '@fastify/redis';
 import * as ws from '@fastify/websocket';
-import { GetRideDetails, UpdateRideStatus, CreateRide, UpdateRideRoute } from './apis';
+import * as multipart from '@fastify/multipart'
+import { fastifySchedule } from '@fastify/schedule';
+import { GetRideDetails, UpdateRideStatus, CreateRide, UpdateRidePhotos, Alert } from './apis';
 import { registerWebSockets } from './websockets'
+import { Database } from './library/database';
 
 const server = fastify.default({
-  logger: true
+  logger: true,
+  requestTimeout: 30000
 })
 
-server.register(redis.default, { url: 'redis://cache' })
+server.register(fastifySchedule);
+
+// server.register(redis.default, { url: 'redis://cache' }) // production
+server.register(redis.default, { url: 'redis://127.0.0.1' }) // local
+
 server.register(ws.default)
+
+server.register(multipart.default)
 
 server.register((_f, _opts, done) => {
 
-  registerWebSockets(server)
+  const db = new Database()
+  db.init()
+  
+  registerWebSockets(server, db)
   
   server.get('/health', function (_r, reply) {
     reply.send({ success: true })
   })
   
-  server.post('/ride', CreateRide(server))
-  server.get('/ride/:rideId', GetRideDetails(server))
-  server.put('/ride/:rideId/status/:status', UpdateRideStatus(server))
-  server.put('/ride/:rideId/route', UpdateRideRoute(server))
+  server.post('/ride', CreateRide(server, db))
+  server.get('/ride/:rideId', GetRideDetails(server, db))
+  server.put('/ride/:rideId/status/:status', UpdateRideStatus(server, db))
+  server.put('/ride/:rideId/photos', UpdateRidePhotos(server))
+  server.put('/ride/:rideId/alert', Alert(server, db))
 
   done()
 
