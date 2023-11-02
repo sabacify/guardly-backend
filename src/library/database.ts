@@ -17,7 +17,7 @@ export class Database {
         user: 'postgres', // 'guardly_rwuser'
         password: 'SCBpassword1$', // 'admin'
         database: 'guardly',
-        ssl: false
+        ssl: { rejectUnauthorized: false }
       },
       searchPath: ['app']
     });
