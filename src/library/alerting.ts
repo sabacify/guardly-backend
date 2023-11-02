@@ -47,9 +47,15 @@ export class Alerting {
 
     const reverseGeoCode = async (coords: number[]) => {
       const { data } = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords[0]},${coords[1]}&sensor=true&key=AIzaSyAzLWjo_sNFltV5E9uj8Oc1UlFq_0vT5wM`)
+
+      console.log({reverseGeocoding: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords[0]},${coords[1]}&sensor=true&key=AIzaSyAzLWjo_sNFltV5E9uj8Oc1UlFq_0vT5wM`})
+
       const { results } = data
 
       const first = results[0]
+      if (!first || !first.formatted_address) {
+        return ""
+      }
       const addr = first.formatted_address
 
       return addr
