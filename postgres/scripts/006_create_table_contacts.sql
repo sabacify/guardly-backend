@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS app.contacts
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS app.contacts
-    OWNER to guardly_rwuser;
+    OWNER to postgres;

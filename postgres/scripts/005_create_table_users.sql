@@ -16,4 +16,4 @@ CREATE TABLE IF NOT EXISTS app.users
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS app.users
-    OWNER to guardly_rwuser;
+    OWNER to postgres;

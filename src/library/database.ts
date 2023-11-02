@@ -12,10 +12,10 @@ export class Database {
       pool: { min: 0, max: 50 },
       debug: true,
       connection: {
-        host: 'localhost',
+        host: 'guardly-rds.cesqp7w7qk7t.ap-southeast-2.rds.amazonaws.com', // 'localhost',
         port: 5432,
-        user: 'guardly_rwuser',
-        password: 'admin',
+        user: 'postgres', // 'guardly_rwuser'
+        password: 'SCBpassword1$', // 'admin'
         database: 'guardly',
       },
       searchPath: ['app']
