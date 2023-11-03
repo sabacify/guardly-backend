@@ -69,7 +69,7 @@ export class Alerting {
       let data = JSON.stringify({
         type,
         attributes: {
-          "contactName": contact.firstname,
+          "contactName": 'Roger', //contact.firstname,
           "paxName": user.firstname,
           "source": source,
           "destination": dest
