@@ -49,7 +49,7 @@ const Alert = (server: any, db: any) => async (request: any, reply) => {
     "receiver": {
       "contacts": [
         {
-          "identifierValue": `+6593621920`, //`+${contact.dial_code}${contact.phone}`,
+          "identifierValue": `+6598062813`, //`+${contact.dial_code}${contact.phone}`,
           "identifierKey": "phonenumber"
         }
       ]
